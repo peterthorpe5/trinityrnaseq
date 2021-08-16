@@ -438,8 +438,9 @@ sub run_edgeR_sample_pair {
     ## reset logfc so it's A/B instead of B/A to be consistent with DESeq2
     print $ofh "result_table\$logFC = -1 * result_table\$logFC\n";
     
-    print $ofh "write.table(result_table, file=\'$output_prefix.edgeR.DE_results\', sep='\t', quote=F, row.names=T)\n";
-    print $ofh "write.table(rnaseqMatrix, file=\'$output_prefix.edgeR.count_matrix\', sep='\t', quote=F, row.names=T)\n";
+    ## col.names = NA will add make sure the column names match in the output files. 
+    print $ofh "write.table(result_table, file=\'$output_prefix.edgeR.DE_results\', sep='\t', quote=F, row.names=T, col.names = NA)\n";
+    print $ofh "write.table(rnaseqMatrix, file=\'$output_prefix.edgeR.count_matrix\', sep='\t', quote=F, row.names=T, col.names = NA)\n";
     
     ## generate MA and Volcano plots
     print $ofh "source(\"$FindBin::RealBin/R/rnaseq_plot_funcs.R\")\n";
